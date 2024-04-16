@@ -10,7 +10,7 @@ import {useState} from 'react';
 import React from 'react';
 import {
   Button,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   TextInput,
@@ -68,9 +68,11 @@ function App() {
       borderColor: 'black',
       borderWidth: 4,
       marginTop: 30,
-      color: '#fff',
+      color: 'black',
       marginBottom: 20,
       padding: 10,
+      borderRadius: 10,
+      minWidth: 200,
     },
     userInfor: {
       color: '#fff',
@@ -85,33 +87,37 @@ function App() {
       borderRadius: 10,
       elevation: 5,
     },
+    marg: {
+      margin: 20,
+    },
+    btn: {
+      marginBottom: 20,
+      backgroundColor: 'pink',
+      padding: 20,
+      borderRadius: 10,
+      elevation: 5,
+    },
   });
 
+  //using the flatView to display the users
   return (
-    <ScrollView>
-      <View
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%',
-          backgroundColor: 'gray',
-          borderColor: '#fff',
-          paddingTop: 30,
-        }}>
-        {users.map(user => {
-          return (
-            <View style={styles.userCard}>
-              <Text style={styles.userInfor}>
-                {user.name} is {user.status}
-              </Text>
-            </View>
-          );
-        })}
+    <View style={styles.marg}>
+      <View style={styles.btn}>
         <TextInput style={styles.input} />
         <Button title="Add user" />
       </View>
-    </ScrollView>
+
+      <FlatList
+        data={users}
+        renderItem={({item}) => (
+          <View style={styles.userCard}>
+            <Text style={styles.userInfor}>
+              {item.name} is {item.status}
+            </Text>
+          </View>
+        )}
+      />
+    </View>
   );
 }
 
