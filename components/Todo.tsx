@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 
 function Todo() {
+  const [text, setText] = useState('');
   const [todos, setTodo] = useState([
     {
       id: 1,
@@ -34,6 +35,21 @@ function Todo() {
       item: 'python course ',
     },
   ]);
+
+  //function to add items to the state
+  const submitTodo = (text: any) => {
+    let newList = [
+      ...todos,
+      {
+        id: Math.random(),
+        item: text,
+      },
+    ];
+
+    setTodo(newList);
+
+    console.log(text);
+  };
   //creating all the styles here
 
   const styles = StyleSheet.create({
@@ -69,15 +85,21 @@ function Todo() {
 
   //a function to delete a todo
   const deleteTodo = (id: Number) => {
-    const newTodos = todos.filter((t:any)=>t.id !== id);
-     setTodo(newTodos);
+    const newTodos = todos.filter((t: any) => t.id !== id);
+    setTodo(newTodos);
   };
 
   return (
     <View style={styles.todoWraper}>
-      <TextInput placeholder="note anything" style={styles.textFlied} />
+      <TextInput
+        onChangeText={(val: any) => {
+          setText(val);
+        }}
+        placeholder="note anything"
+        style={styles.textFlied}
+      />
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => submitTodo(text)}>
         <View style={styles.btnWraper}>
           <Text
             style={{
