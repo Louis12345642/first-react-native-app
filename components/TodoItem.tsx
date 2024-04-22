@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-function TodoItem({todo}:any) {
+function TodoItem({todo, deleteTodo}: any) {
   const styles = StyleSheet.create({
     itemWrapper: {
       backgroundColor: 'pink',
@@ -12,9 +12,11 @@ function TodoItem({todo}:any) {
     },
   });
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => deleteTodo(todo.id)}>
       <View style={styles.itemWrapper}>
-        <Text style={{fontWeight: 'bold', fontSize: 20}}>{todo.item}</Text>
+        <Text style={{fontWeight: 'bold', fontSize: 20}}>
+          {todo.item} {todo.id}
+        </Text>
       </View>
     </TouchableOpacity>
   );

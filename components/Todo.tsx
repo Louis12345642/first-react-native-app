@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {todos} from '../data/todos';
 import {useState} from 'react';
-import TodoItem from './todoItem';
+import TodoItem from './TodoItem';
+// import TodoItem from './todoItem';
 
 import {
   StyleSheet,
@@ -16,7 +16,24 @@ import {
 } from 'react-native';
 
 function Todo() {
-  const [TODOS, setTodo] = useState(todos);
+  const [todos, setTodo] = useState([
+    {
+      id: 1,
+      item: 'eat food',
+    },
+    {
+      id: 2,
+      item: 'play video games',
+    },
+    {
+      id: 3,
+      item: 'go and code',
+    },
+    {
+      id: 4,
+      item: 'python course ',
+    },
+  ]);
   //creating all the styles here
 
   const styles = StyleSheet.create({
@@ -51,8 +68,9 @@ function Todo() {
   });
 
   //a function to delete a todo
-  const deleteTodo = () => {
-    console.log('delete');
+  const deleteTodo = (id: Number) => {
+    const newTodos = todos.filter((t:any)=>t.id !== id);
+     setTodo(newTodos);
   };
 
   return (
@@ -86,7 +104,9 @@ function Todo() {
       </Text>
       <FlatList
         data={todos}
-        renderItem={({item}) => <TodoItem todo={item}  />}
+        renderItem={({item}) => (
+          <TodoItem todo={item} deleteTodo={deleteTodo} />
+        )}
       />
     </View>
   );
